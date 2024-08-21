@@ -1,0 +1,42 @@
+# Arquivos do ambiente de build do Visual Studio
+bin/
+obj/
+
+# Diretórios de configuração do usuário do Visual Studio
+.vscode/
+
+# Arquivos de projeto específicos do Visual Studio
+*.user
+*.suo
+*.sln.docstates
+
+# Logs
+*.log
+
+# Arquivos de backup
+*.bak
+*.old
+
+# Arquivos de cache e temporários
+*.tmp
+*.temp
+
+# Arquivos Docker
+docker-compose.override.yml
+.dockerignore
+
+# Arquivos do editor
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Arquivos do sistema operacional
+.DS_Store
+Thumbs.db
+
+# Arquivos gerados por build de containers Docker
+!docker-compose.yml
+
+# Arquivos de output do build do projeto
+UserApi.csproj.EntityFrameworkCore.targets
+UserApi.csproj.nuget.dgspec.json
