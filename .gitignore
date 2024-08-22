@@ -40,3 +40,6 @@ Thumbs.db
 # Arquivos de output do build do projeto
 UserApi.csproj.EntityFrameworkCore.targets
 UserApi.csproj.nuget.dgspec.json
+
+Views/node_modules
+Views/.next

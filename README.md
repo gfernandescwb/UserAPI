@@ -95,7 +95,7 @@ Finalmente, execute o projeto:
 dotnet run
 ```
 
-A API estará disponível em `https://localhost:5133`.
+A API estará disponível em `https://localhost:5133/swagger`.
 
 ### 8. Teste a API
 
@@ -142,6 +142,90 @@ docker-compose down
 ```
 
 Isso irá parar e remover os containers do MySQL criados pelo Docker Compose.
+
+## Banco de dados
+
+### Criar tabelas
+
+``` sql
+-- Tabela de usuários
+CREATE TABLE `Users` (
+  `Id` INTEGER PRIMARY KEY AUTO_INCREMENT,
+  `Account` INTEGER,
+  `ActiveMsg` ENUM ('BLOCKED', 'DELETED', 'ACTIVE'),
+  `ActiveStatus` BOOLEAN,
+  FOREIGN KEY (`Account`) REFERENCES `Accounts` (`Id`)
+);
+
+-- Tabela para as informações dos usuários
+CREATE TABLE `Accounts` (
+  `Id` INTEGER PRIMARY KEY AUTO_INCREMENT,
+  `Firstname` LONGTEXT,
+  `Lastname` LONGTEXT,
+  `Username` LONGTEXT,
+  `Email` LONGTEXT,
+  `Password` LONGTEXT
+);
+
+-- Tabela com os últimos logins e tentativas
+CREATE TABLE `Signins` (
+  `Id` INTEGER PRIMARY KEY AUTO_INCREMENT,
+  `Email` LONGTEXT,
+  `AccessDate` DATETIME(6),
+  `AccessMsg` ENUM ('SUCCEED', 'PASSWORD', 'EMAIL', 'SERVICE'),
+  `AccessStatus` TINYINT(1),
+  `UserId` INTEGER,
+  FOREIGN KEY (`UserId`) REFERENCES `Users` (`Id`)
+);
+```
+
+### Adicionar novo usuario e login
+
+``` sql
+-- Inserir um novo registro na tabela 'account'
+INSERT INTO Accounts (Firstname, Lastname, Username, Email, Password)
+VALUES ('Jane', 'Doe', 'janedoe', 'jane.doe@example.com', 'hashed_password');
+
+-- Obter o ID da conta recém-criada
+SET @account_id = LAST_INSERT_ID();
+
+-- Inserir um novo registro na tabela 'users' usando o ID da conta
+INSERT INTO Users (Id, ActiveMsg, ActiveStatus)
+VALUES (@account_id, 'ACTIVE', true);  -- Usa `@account_id` para associar a conta ao usuário
+
+-- Inserir uma operação de login para o novo usuário (exemplo de simulação de login)
+INSERT INTO Signins (Email, AccessDate, AccessMsg, AccessStatus, UserId)
+VALUES ('jane.doe@example.com', NOW(), 'SUCCEED', true, @account_id);
+
+-- Verificar os logins atualizados
+SELECT * FROM Signins;
+```
+
+### Acessos nas ultimas 2h
+
+``` sql
+-- Selecionar logins realizados e tentativas nas últimas duas horas
+SELECT *
+FROM Signins
+JOIN Users ON Users.Id = Signins.UserId
+JOIN Accounts ON Accounts.Id = Users.Account
+WHERE Signins.AccessDate >= NOW() - INTERVAL 2 HOUR;
+```
+
+## Frontend
+
+### Instalar dependencias
+
+``` bash
+npm install
+```
+
+### Rodar o projeto
+
+```
+npm run dev
+```
+
 
 ## Notas
 
