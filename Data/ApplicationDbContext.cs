@@ -27,7 +27,8 @@ namespace UserApi.Data
             modelBuilder.Entity<User>()
                 .HasOne(u => u.AccountNavigation)
                 .WithMany(a => a.Users)
-                .HasForeignKey(u => u.Account);
+                .HasForeignKey(u => u.Account)
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Signin>()
                 .HasOne(s => s.UserNavigation)

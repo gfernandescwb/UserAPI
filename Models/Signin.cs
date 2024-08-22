@@ -10,7 +10,6 @@ namespace UserApi.Models
         public AccessMessage AccessMsg { get; set; }
         public bool AccessStatus { get; set; }
         public int UserId { get; set; }
-        public User UserNavigation { get; set; } = new User();
+        public User UserNavigation { get; set; }
     }
-
 }
