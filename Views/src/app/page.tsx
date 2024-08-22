@@ -26,7 +26,7 @@ export default function Home() {
         email,
         password,
       });
-      if (!response.success) {
+      if (!response.token) {
         setError("Falha no login. Verifique suas credenciais.");
       }
     } catch (error) {
