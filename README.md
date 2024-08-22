@@ -17,7 +17,7 @@ Antes de começar, certifique-se de ter as seguintes ferramentas instaladas em s
 Clone este repositório em sua máquina local:
 
 ```bash
-git clone https://github.com/seu-usuario/UserApi.git
+git clone https://github.com/gfernandescwb/UserAPI.git
 cd UserApi
 ```
 
@@ -143,6 +143,38 @@ docker-compose down
 
 Isso irá parar e remover os containers do MySQL criados pelo Docker Compose.
 
+## Frontend
+
+O frontend do projeto está localizado no diretório `/Views`.
+
+### Dependências
+
+Antes de rodar o projeto, certifique-se de ter as seguintes dependências instaladas:
+
+- **[Node.js](https://nodejs.org/)**: Plataforma JavaScript para desenvolvimento.
+- **[NPM](https://www.npmjs.com/)**: Gerenciador de pacotes do Node.js.
+- **[Next.js](https://nextjs.org/)**: Framework React para desenvolvimento de aplicações web.
+- **[Tailwind CSS](https://tailwindcss.com/)**: Framework de CSS utilitário para estilização.
+- **[React Icons](https://react-icons.github.io/react-icons/)**: Biblioteca de ícones para React.
+
+### Instalação das Dependências
+
+Para instalar todas as dependências do projeto, execute o seguinte comando na raiz do diretório:
+
+```bash
+npm install
+```
+
+### Executando o Projeto
+
+Para iniciar o servidor de desenvolvimento e rodar o projeto localmente, utilize o comando:
+
+```bash
+npm run dev
+```
+
+Isso iniciará o servidor em modo de desenvolvimento. Normalmente, você pode acessar o projeto no navegador através de `http://localhost:3000`.
+
 ## Banco de dados
 
 ### Criar tabelas
@@ -211,21 +243,6 @@ JOIN Users ON Users.Id = Signins.UserId
 JOIN Accounts ON Accounts.Id = Users.Account
 WHERE Signins.AccessDate >= NOW() - INTERVAL 2 HOUR;
 ```
-
-## Frontend
-
-### Instalar dependencias
-
-``` bash
-npm install
-```
-
-### Rodar o projeto
-
-```
-npm run dev
-```
-
 
 ## Notas
 
